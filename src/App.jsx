@@ -5,7 +5,8 @@ import './App.css'
 
 function App() {
   const [select, setselect] = useState("");
-  const [filter, setfilter] = useState(film)
+  const [filter, setfilter] = useState(film);
+  const [newMovie, setNewMovie] = useState('');
   
   useEffect(()=>{
     if (!select.length) {
@@ -28,10 +29,20 @@ function App() {
         <option value="Fantascienza">Fantascienza</option>
         <option value="Thriller">Thriller</option>
       </select>
+      <form onSubmit={function Sumit(event){
+        event.preventDefault();
+        setfilter([...filter,newMovie]);
+        setNewMovie('');
+      }}>
+        <input type="text" value={newMovie} onChange={(event)=>{
+          setNewMovie(event.target.value)
+        }} />
+        <button type='submit'>Aggiungi Film</button>
+      </form>
       <div className='row' >
         
         {filter.map((item, index)=> (
-          <div key={index} className='card col-3'>
+          <div key={index} className='card col-3 gap-1 mt-5'>
           <h3 className='card-title'>{item.title}</h3>
           <p className='card-subtitle mb-2 text-body-secondary'>{item.genre}</p>
           </div>
